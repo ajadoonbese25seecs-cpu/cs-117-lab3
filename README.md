@@ -24,10 +24,10 @@ Assembly language is a low-level programming language that is closely related to
 In Python, abstraction is achieved using abstract classes and abstract methods.
 
 3. Comparison Table
-[Document 9.docx]
-(https://github.com/user-attachments/files/22599419/Document.9.docx)
 
- 
-
-
-
+|             |            |
+|             |            |
+|             |            |
+|             |            |
+|             |            |
+|             |            |
