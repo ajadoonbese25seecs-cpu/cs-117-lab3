@@ -31,5 +31,5 @@ In Python, abstraction is achieved using abstract classes and abstract methods.
   |---------|------------------|----------------|-------|
   |Variable storage|Register(eax)| x=5 | **Assembly** uses memory and registers to temporarily store data, while **python** uses symbols (variables) and fills them with given data.|
   |Printing Output|INT 21h | print()| In **assembly** we use INT 21h to display output of the string. In **python**, we use instruction print() to display output.| 
-  |Arithmetic|add ax, bx | x+y | In python, we can perform arithmetic operations on the variables defined by putting “+, -, *, /” operations.In assembly, we use the instructions of ADD for addition and SUB for subtractions of two numbers.|
+  |Arithmetic|add ax, bx | x+y | In **python**, we can perform arithmetic operations on the variables defined by putting “+, -, *, /” operations.In **assembly**, we use the instructions of ADD for addition and SUB for subtractions of two numbers.|
  
