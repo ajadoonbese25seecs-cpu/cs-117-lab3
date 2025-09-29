@@ -25,4 +25,5 @@ In Python, abstraction is achieved using abstract classes and abstract methods.
 
 3. Comparison Table
 
-First heading 		Second Heading 		Third Heading 		Fourth Heading						
+a	a	a	a	
+a	a	a	a
