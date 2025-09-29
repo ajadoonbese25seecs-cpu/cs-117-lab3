@@ -14,6 +14,7 @@ Arithematic, we use "+, -, /, * "
 
 
 2. Python Reflections
+3. 
 ○ Why is Python easier/faster for building the same project?
 
 Assembly language is a low-level programming language that is closely related to machine code. It allows for direct manipulation of hardware and memory, making it extremely efficient and fast.Assembly is used for high-performance tasks.
