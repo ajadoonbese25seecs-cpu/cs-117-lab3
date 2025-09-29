@@ -1,8 +1,11 @@
 1. Assembly Reflections
+
 ○ What did you notice about registers and instructions?
+
 We noticed that registers are actually **temporary storage locations inside the CPU**. They hold data while computing.
 
 ○ How is coding in Assembly different from Python?
+
 Instructions in assembly are low-level and correspond directly to machine code executed by the CPU.**For example:**
 For moving data, we use "mov, push etc."
 
