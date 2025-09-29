@@ -13,10 +13,13 @@ However,in **Python**, instructions are high-level and usually in the from of st
 Arithematic, we use "+, -, /, * "
 
 
-3. Python Reflections
+2. Python Reflections
 ○ Why is Python easier/faster for building the same project?
+
 Assembly language is a low-level programming language that is closely related to machine code. It allows for direct manipulation of hardware and memory, making it extremely efficient and fast.Assembly is used for high-performance tasks.
+
 ○ Which features of Python help abstraction (variables, functions, loops)?
+
 In Python, abstraction is achieved using abstract classes and abstract methods.
 
-5. Comparison Table
+3. Comparison Table
