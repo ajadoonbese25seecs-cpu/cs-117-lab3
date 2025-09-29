@@ -24,47 +24,10 @@ Assembly language is a low-level programming language that is closely related to
 In Python, abstraction is achieved using abstract classes and abstract methods.
 
 3. Comparison Table
- 
-
-Feature 
-
-Assembly Example 
-
-Python Example 
-
-Notes 
-
-Variable Storage 
-
-Register (EAX) 
-
-x=5 
-
-For python, a variable is stored directly by writing the variable name (x, y, z etc.).  
+[Document 9.docx]
+(https://github.com/user-attachments/files/22599419/Document.9.docx)
 
  
 
-Whereas in assembly, a register of type EAX (in this case) is used to store the variable 
 
-Printing output 
-
-INT 21h 
-
-print () 
-
-In python, the output can be displayed by adding print () to display text, numbers etc. 
-
- In assembly, we use the INT 21h to display the string already defined before. 
-
-Arithmetic 
-
-ADD AX, BX 
-
-x + y 
-
-In python, we can perform arithmetic operations on the variables defined by putting “+, -, *, /” operations. 
-
-In assembly, we use the instructions of ADD for addition and SUB for subtractions of two numbers. 
-
- 
 
