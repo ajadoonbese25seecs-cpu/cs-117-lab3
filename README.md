@@ -26,10 +26,9 @@ In Python, abstraction is achieved using abstract classes and abstract methods.
 3. Comparison Table
 
  Comparison Table
+
   | Feature | Assembly Example | Python Example | Notes |
   |---------|------------------|----------------|-------|
-  |Variable storage|Register(eax)| x=5 | For python, a variable is stored directly by writing the variable name (x, y, z etc.).  
-                                        Whereas in assembly, a register of type EAX (in this case) is used to store the variable |
+  |Variable storage|Register(eax)| x=5 | **Assembly** uses memory and registers to temporarily store data, while **python** uses symbols (variables) and fills them with given data.|
   |Printing Output|int 0x80| print()| ..|
   |Arithmetic|add ax, bx | x+y | ..|
-  
