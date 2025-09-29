@@ -25,5 +25,10 @@ In Python, abstraction is achieved using abstract classes and abstract methods.
 
 3. Comparison Table
 
-a	a	a	a	
-a	a	a	a
+ Comparison Table
+  | Feature | Assembly Example | Python Example | Notes |
+  |---------|------------------|----------------|-------|
+  |Variable storage|Register(eax)| x=5 | ..|
+  |Printing Output|int 0x80| print()| ..|
+  |Arithmetic|add ax, bx | x+y | ..|
+  
