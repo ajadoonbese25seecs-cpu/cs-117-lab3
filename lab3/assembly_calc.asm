@@ -1,186 +1,104 @@
 section .data
-    prompt_num1 db 'Enter first number: ', 0
-    prompt_num2 db 'Enter second number: ', 0
-    prompt_op db 'Enter operation (+ or -): ', 0
-    result_msg db 'Result: ', 0
-    error_msg db 'Invalid operation!', 0xA, 0
-    newline db 0xA, 0
+    msg_add      db "Addition Result: ", 0
+    msg_add_len  equ $ - msg_add
+
+    msg_mul      db "Multiplication Result: ", 0
+    msg_mul_len  equ $ - msg_mul
+
+    newline      db 0xA
+    newline_len  equ $ - newline
 
 section .bss
-    num1 resb 16        ; Buffer for first number
-    num2 resb 16        ; Buffer for second number
-    operation resb 2    ; Buffer for operation (+ or -)
-    result resq 1       ; Store result
+    result_str resb 16    ; Buffer to store result as string
 
 section .text
     global _start
 
 _start:
-    ; Print prompt for first number
-    mov rax, 1          ; Syscall: write
-    mov rdi, 1          ; File descriptor: stdout
-    mov rsi, prompt_num1
-    mov rdx, 20         ; Length of prompt_num1
-    syscall
+    ; -------- Hard-coded numbers ----------
+    mov eax, 7          ; First number
+    mov ebx, 5          ; Second number
 
-    ; Read first number
-    mov rax, 0          ; Syscall: read
-    mov rdi, 0          ; File descriptor: stdin
-    mov rsi, num1
-    mov rdx, 16
-    syscall
+    ; -------- Addition ----------
+    mov ecx, eax        ; Store eax in ecx
+    add ecx, ebx        ; ecx = eax + ebx
+    mov edi, ecx        ; Save result for printing
 
-    ; Print prompt for second number
-    mov rax, 1
-    mov rdi, 1
-    mov rsi, prompt_num2
-    mov rdx, 21         ; Length of prompt_num2
-    syscall
+    ; Print addition message
+    mov eax, 4          ; sys_write
+    mov ebx, 1          ; stdout
+    mov ecx, msg_add
+    mov edx, msg_add_len
+    int 0x80
 
-    ; Read second number
-    mov rax, 0
-    mov rdi, 0
-    mov rsi, num2
-    mov rdx, 16
-    syscall
-
-    ; Print prompt for operation
-    mov rax, 1
-    mov rdi, 1
-    mov rsi, prompt_op
-    mov rdx, 24         ; Length of prompt_op
-    syscall
-
-    ; Read operation
-    mov rax, 0
-    mov rdi, 0
-    mov rsi, operation
-    mov rdx, 2
-    syscall
-
-    ; Convert first number to integer
-    mov rsi, num1
-    call atoi
-    mov rbx, rax        ; Store first number in rbx
-
-    ; Convert second number to integer
-    mov rsi, num2
-    call atoi
-    mov rcx, rax        ; Store second number in rcx
-
-    ; Check operation
-    mov al, [operation]
-    cmp al, '+'
-    je add_numbers
-    cmp al, '-'
-    je sub_numbers
-    jmp invalid_op
-
-add_numbers:
-    add rbx, rcx
-    mov [result], rbx
-    jmp print_result
-
-sub_numbers:
-    sub rbx, rcx
-    mov [result], rbx
-    jmp print_result
-
-invalid_op:
-    mov rax, 1
-    mov rdi, 1
-    mov rsi, error_msg
-    mov rdx, 18         ; Length of error_msg
-    syscall
-    jmp exit
-
-print_result:
-    ; Print "Result: "
-    mov rax, 1
-    mov rdi, 1
-    mov rsi, result_msg
-    mov rdx, 8          ; Length of result_msg
-    syscall
-
-    ; Convert result to string and print
-    mov rax, [result]
-    call itoa
-    mov rax, 1
-    mov rdi, 1
-    mov rsi, num1       ; Reusing num1 buffer for output
-    mov rdx, 16
-    syscall
+    ; Print addition result
+    mov eax, edi
+    call print_number
 
     ; Print newline
-    mov rax, 1
-    mov rdi, 1
-    mov rsi, newline
-    mov rdx, 1
-    syscall
+    mov eax, 4
+    mov ebx, 1
+    mov ecx, newline
+    mov edx, newline_len
+    int 0x80
 
-exit:
-    ; Exit program
-    mov rax, 60         ; Syscall: exit
-    mov rdi, 0          ; Status: 0
-    syscall
+    ; -------- Multiplication ----------
+    mov eax, 7
+    mov ebx, 5
+    imul ebx           ; EAX = EAX * EBX
+    mov edi, eax       ; Save result
 
-; Function: atoi (convert string to integer)
-atoi:
-    xor rax, rax        ; Clear rax
-    xor rcx, rcx        ; Clear rcx (digit counter)
-atoi_loop:
-    movzx rdx, byte [rsi + rcx]
-    cmp rdx, 0xA        ; Check for newline
-    je atoi_done
-    cmp rdx, 0          ; Check for null terminator
-    je atoi_done
-    sub rdx, '0'        ; Convert ASCII to number
-    imul rax, 10
-    add rax, rdx
-    inc rcx
-    jmp atoi_loop
-atoi_done:
-    ret
+    ; Print multiplication message
+    mov eax, 4
+    mov ebx, 1
+    mov ecx, msg_mul
+    mov edx, msg_mul_len
+    int 0x80
 
-; Function: itoa (convert integer to string)
-itoa:
-    mov rbx, num1       ; Use num1 buffer for output
-    mov rcx, 0          ; Digit counter
-    cmp rax, 0
-    jge itoa_positive
-    mov byte [rbx], '-'
-    inc rbx
-    inc rcx
-    neg rax
-itoa_positive:
-    mov r8, 10          ; Base 10
-    mov r9, rbx         ; Save start of buffer
-itoa_loop:
-    xor rdx, rdx
-    div r8              ; rax = quotient, rdx = remainder
-    add dl, '0'         ; Convert to ASCII
-    mov [rbx], dl
-    inc rbx
-    inc rcx
-    cmp rax, 0
-    jne itoa_loop
-    ; Reverse the string
-    mov rsi, r9
-    mov rdi, rbx
-    dec rdi
-    mov r8, rcx
-    shr r8, 1           ; Divide length by 2
-reverse_loop:
-    cmp r8, 0
-    je itoa_done
-    mov al, [rsi]
-    mov bl, [rdi]
-    mov [rsi], bl
-    mov [rdi], al
-    inc rsi
-    dec rdi
-    dec r8
-    jmp reverse_loop
-itoa_done:
-    mov byte [rbx], 0   ; Null terminate
+    ; Print multiplication result
+    mov eax, edi
+    call print_number
+
+    ; Print newline
+    mov eax, 4
+    mov ebx, 1
+    mov ecx, newline
+    mov edx, newline_len
+    int 0x80
+
+    ; -------- Exit Program ----------
+    mov eax, 1
+    xor ebx, ebx
+    int 0x80
+
+; --------------------------------------
+; Convert number in EAX to string and print
+; --------------------------------------
+print_number:
+    mov ecx, result_str + 15  ; Point to end of buffer
+    mov byte [ecx], 0         ; Null terminator
+
+print_loop:
+    dec ecx
+    xor edx, edx
+    mov ebx, 10
+    div ebx                   ; EAX = EAX / 10, EDX = remainder
+    add dl, '0'
+    mov [ecx], dl
+    test eax, eax
+    jnz print_loop
+
+    ; Write result
+    mov eax, 4
+    mov ebx, 1
+    mov edx, result_str + 15
+    sub edx, ecx
+    mov eax, 4
+    mov ebx, 1
+    mov edx, result_str + 15
+    sub edx, ecx
+    mov eax, 4
+    mov ebx, 1
+    mov ecx, ecx
+    int 0x80
     ret
