@@ -1,29 +1,46 @@
-def calculator():
-    print("Simple Calculator")
-    print("Operations: +, -, *, /")
-    
-    try:
+while True:
+    print("\n=== Simple Calculator ===")
+    print("Select an operation:")
+    print("+ for Addition")
+    print("- for Subtraction")
+    print("* for Multiplication")
+    print("/ for Division")
+    print("e for Even/Odd check")
+    print("% for Percentage")
+    print("q to Exit")
+    choice = input("Enter your choice: ")
+    if choice == 'q':
+        print("Exiting the calculator. Goodbye!")
+        break
+    if choice in ['+', '-', '*', '/', '%']:
         num1 = float(input("Enter first number: "))
-        op = input("Enter operation: ")
         num2 = float(input("Enter second number: "))
-        
-        if op == '+':
-            result = num1 + num2
-        elif op == '-':
-            result = num1 - num2
-        elif op == '*':
-            result = num1 * num2
-        elif op == '/':
-            if num2 == 0:
-                return "Error: Division by zero"
+    if choice == '+':
+        result = num1 + num2
+        print("Result:", result)
+    elif choice == '-':
+        result = num1 - num2
+        print("Result:", result)
+    elif choice == '*':
+        result = num1 * num2
+        print("Result:", result)
+    elif choice == '/':
+        if num2 != 0:
             result = num1 / num2
+            print("Result:", result)
         else:
-            return "Error: Invalid operation"
-            
-        return f"Result: {result}"
-        
-    except ValueError:
-        return "Error: Invalid input"
-
-if __name__ == "__main__":
-    print(calculator())
+            print("Error! Cannot divide by zero.")
+    elif choice == '%':
+        if num2 != 0:
+            result = (num1 / num2) * 100
+            print("Percentage:", result, "%")
+        else:
+            print("Error! Cannot divide by zero.")
+    elif choice == 'e':
+        num = int(input("Enter a number: "))
+        if num % 2 == 0:
+            print(num, "is Even")
+        else:
+            print(num, "is Odd")
+    else:
+        print("Invalid choice! Try again.")
